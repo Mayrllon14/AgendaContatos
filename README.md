@@ -1,48 +1,155 @@
-# Agenda de Contatos — V.0.1.0
+# Agenda de Contatos - V.0.2.0 📇
 
-> Roteiro de Desenvolvimento Incremental para a disciplina de **Programação Orientada a Objetos (POO)**  
-> **Professor:** Dr. Róger Moura Sarmento  
-> **Instituição:** Instituto Federal de Educação, Ciência e Tecnologia do Ceará (IFCE) — Campus Maranguape  
 
----
+## 📌 Sobre o Projeto
 
-## 📌 Sobre esta Versão (V.0.1.0)
+O **Agenda de Contatos** é um projeto didático desenvolvido de forma incremental para o ensino de Programação Orientada a Objetos. A cada nova versão, novos conceitos de programação são introduzidos e aplicados sobre a versão anterior, permitindo visualizar a evolução do código e compreender a necessidade de novas estruturas e técnicas.
 
-A versão **V.0.1.0** representa o primeiro passo da evolução incremental no armazenamento de dados do projeto **Agenda de Contatos**. 
-
-Na versão anterior (`V.0.0.0`), a aplicação utilizava variáveis simples (`String`), o que limitava a agenda a guardar apenas **1 contato por vez** (um novo cadastro sobrescrevia o anterior). Nesta versão `V.0.1.0`, introduzimos o uso de **Arrays (Vetores)**, permitindo armazenar múltiplos contatos na memória, porém com uma **capacidade máxima fixa**.
-
-> 💡 **Nota Didática:** Esta versão foca no domínio de estruturas de dados estáticas (Arrays), manipulação de índices e laços de repetição, antes de avançarmos para coleções dinâmicas (`List`/`ArrayList` na V.0.2.0) e Orientação a Objetos.
+Nesta **Versão 0.2.0 (V.0.2.0)**, o foco central é a transição de **Arrays estáticos (tamanho fixo)** para **Coleções Dinâmicas** com `List` e `ArrayList` da biblioteca padrão do Java (`java.util`).
 
 ---
 
-## 🚀 Conceitos Trabalhados
+## 🚀 Evolução Incremental do Projeto
 
-- **Declaração e Instanciação de Arrays:** Uso da sintaxe `String[]` e alocação de memória com `new String[capacidade]`.
-- **Índices de Arrays:** Compreensão do acesso indexado base de `0` a `N-1`.
-- **Capacidade Fixa vs. Contagem de Elementos:** Diferença prática entre o tamanho total alocado (`array.length`) e a quantidade real de elementos cadastrados (`quantidade`).
-- **Navegação com Laços (`for`):** Percurso de vetores para exibição e busca de dados.
-- **Relacionamento por Índice:** Manutenção da consistência dos dados de um contato correlacionando o mesmo índice em múltiplos arrays (`nomes[i]`, `celulares[i]`, `emails[i]`).
-- **Reorganização Manual em Exclusões:** Deslocamento de elementos para a esquerda (*shift*) ao remover um registro para não deixar posições nulas intermediárias (*"buracos"*).
-- **Tratamento de Limites:** Validação de estouro da capacidade máxima do array (`ArrayIndexOutOfBoundsException`).
-
----
-
-## 🗺️ Mapa de Evolução das Versões
-
-| Versão | Armazenamento | Conceitos / Aprendizado | Limitações / Motivação |
+| Versão | Armazenamento | Conceitos Trabalhados | Limitações / Motivação |
 | :--- | :--- | :--- | :--- |
-| **V.0.0.0** | Variáveis simples | `String`, `Scanner`, `if-else`, `switch-case`, `while` | Armazena apenas **1 contato**; sobrescreve ao reescrever. |
-| **V.0.1.0** *(Atual)* | **Arrays (Vetores)** | **Declaração de vetores, índices, laço `for`, `capacidade`, controle de limites** | **Permite vários contatos, mas exige capacidade fixa (ex: 5).** |
-| **V.0.2.0** *(Próxima)* | `List` / `ArrayList` | Coleções dinâmicas, `add()`, `get()`, `remove()`, `size()` | Elimina a limitação de tamanho fixo. |
+| **V.0.0.0** | Variáveis Simples | `String`, `Scanner`, `if-else`, `switch-case`, `while` | Armazena apenas **1 contato**. Um novo cadastro sobrescreve o anterior. |
+| **V.0.1.0** | Arrays (`String[]`) | Vetores, índices, tamanho fixo, percurso com `for` | Permite múltiplos contatos, mas requer capacidade pré-definida e gerenciamento manual de índices/remoção. |
+| **V.0.2.0** <br>*(Atual)* | `List` / `ArrayList` | Coleções dinâmicas, `add()`, `get()`, `remove()`, `size()`, `java.util.*` | Armazena múltiplos contatos com **tamanho dinâmico**. Elimina a necessidade de controle de capacidade e reorganização manual. |
 
 ---
 
-## 🛠️ O que mudou no Código?
+## 🎯 Objetivos de Aprendizagem da V.0.2.0
 
-### 1. Declaração do Armazenamento
-- **Antes (V.0.0.0):**
-  ```java
-  String nome = "";
-  String celular = "";
-  String email = "";
+* **Coleções Genéricas (`List<E>` e `ArrayList<E>`):** Compreender a diferença entre a declaração da interface e a instanciação da classe concreta.
+* **Tamanho Dinâmico:** Eliminar limites rígidos de capacidade e variáveis de controle manual (como `capacidade` e `cont`).
+* **Manipulação de Listas:**
+  * `add(elemento)`: Inserir elementos dinamicamente ao final da lista.
+  * `get(indice)`: Acessar elementos por seu índice posicional.
+  * `remove(indice)`: Remover elementos diretamente sem a necessidade de deslocar manualmente os itens restantes.
+  * `size()`: Consultar a quantidade atual de elementos na lista.
+
+---
+
+## 💻 Código Fonte (`Principal.java`)
+
+```java
+package br.edu.principal;
+
+import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+
+public class Principal {
+
+    public static void main(String[] args) {
+        // Declaração e instanciação de coleções dinâmicas
+        List<String> nomes = new ArrayList<>();
+        List<String> celulares = new ArrayList<>();
+        List<String> emails = new ArrayList<>();
+
+        Scanner sc = new Scanner(System.in);
+        int opcao;
+        boolean continuar = true;
+
+        System.out.println("==========================");
+        System.out.println("    AGENDA DE CONTATOS    ");
+        System.out.println("         V.0.2.0          ");
+        System.out.println("==========================");
+        System.out.println("Bem-vindo!");
+
+        while (continuar) {
+            System.out.println();
+            System.out.println("1 - Adicionar contato");
+            System.out.println("2 - Listar contatos");
+            System.out.println("3 - Procurar contato");
+            System.out.println("4 - Excluir contato");
+            System.out.println("5 - Sair");
+            System.out.println();
+            System.out.print("Escolha uma opção: ");
+
+            opcao = sc.nextInt();
+            sc.nextLine(); // Limpeza de buffer
+
+            switch (opcao) {
+                case 1 -> {
+                    System.out.println("\n--- ADICIONAR CONTATO ---");
+                    System.out.print("Nome: ");
+                    nomes.add(sc.nextLine());
+
+                    System.out.print("Celular: ");
+                    celulares.add(sc.nextLine());
+
+                    System.out.print("E-mail: ");
+                    emails.add(sc.nextLine());
+
+                    System.out.println("Contato salvo com sucesso!");
+                }
+                case 2 -> {
+                    System.out.println("\n--- LISTAR CONTATOS ---");
+                    if (nomes.size() == 0) {
+                        System.out.println("Nenhum contato encontrado!");
+                    } else {
+                        for (int i = 0; i < nomes.size(); i++) {
+                            System.out.println("\nContato " + (i + 1));
+                            System.out.println("Nome: " + nomes.get(i));
+                            System.out.println("Celular: " + celulares.get(i));
+                            System.out.println("E-mail: " + emails.get(i));
+                        }
+                    }
+                }
+                case 3 -> {
+                    System.out.println("\n--- PROCURAR CONTATO ---");
+                    System.out.print("Digite o nome que deseja procurar: ");
+                    String nomeBusca = sc.nextLine();
+                    boolean encontrado = false;
+
+                    for (int i = 0; i < nomes.size(); i++) {
+                        if (nomes.get(i).equalsIgnoreCase(nomeBusca)) {
+                            System.out.println("\nContato encontrado!");
+                            System.out.println("Nome: " + nomes.get(i));
+                            System.out.println("Celular: " + celulares.get(i));
+                            System.out.println("E-mail: " + emails.get(i));
+                            encontrado = true;
+                        }
+                    }
+
+                    if (!encontrado) {
+                        System.out.println("Contato não encontrado.");
+                    }
+                }
+                case 4 -> {
+                    System.out.println("\n--- EXCLUIR CONTATO ---");
+                    if (nomes.size() == 0) {
+                        System.out.println("Nenhum contato cadastrado.");
+                    } else {
+                        System.out.print("Digite o nome do contato que deseja excluir: ");
+                        String nomeExcluir = sc.nextLine();
+                        int indiceExcluir = -1;
+
+                        for (int i = 0; i < nomes.size(); i++) {
+                            if (nomes.get(i).equalsIgnoreCase(nomeExcluir)) {
+                                indiceExcluir = i;
+                            }
+                        }
+
+                        if (indiceExcluir == -1) {
+                            System.out.println("Contato não encontrado.");
+                        } else {
+                            nomes.remove(indiceExcluir);
+                            celulares.remove(indiceExcluir);
+                            emails.remove(indiceExcluir);
+                            System.out.println("Contato excluído com sucesso!");
+                        }
+                    }
+                }
+                case 5 -> {
+                    System.out.println("Saindo...");
+                    continuar = false;
+                }
+                default -> System.out.println("Opção inválida!");
+            }
+        }
+        sc.close();
+    }
+}
