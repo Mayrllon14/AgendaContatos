@@ -1,61 +1,69 @@
-# Agenda de Contatos - V.0.2.0 📇
+# Agenda de Contatos - V.0.3.0
 
+Uma aplicação de console em **Java** desenvolvida pedagogicamente para o ensino de estruturas de dados e coleções. A **V.0.3.0** completa o ciclo **CRUD** (Create, Read, Update, Delete) com a introdução da operação de **atualização/alteração** de dados usando `List` e `ArrayList`.
+
+---
 
 ## 📌 Sobre o Projeto
 
-O **Agenda de Contatos** é um projeto didático desenvolvido de forma incremental para o ensino de Programação Orientada a Objetos. A cada nova versão, novos conceitos de programação são introduzidos e aplicados sobre a versão anterior, permitindo visualizar a evolução do código e compreender a necessidade de novas estruturas e técnicas.
+A **Agenda de Contatos** é um projeto didático concebido para evoluir gradualmente conforme os conceitos de programação Orientada a Objetos e Estruturas de Dados são apresentados em sala de aula.
 
-Nesta **Versão 0.2.0 (V.0.2.0)**, o foco central é a transição de **Arrays estáticos (tamanho fixo)** para **Coleções Dinâmicas** com `List` e `ArrayList` da biblioteca padrão do Java (`java.util`).
+### 📈 Evolução do Projeto
 
----
-
-## 🚀 Evolução Incremental do Projeto
-
-| Versão | Armazenamento | Conceitos Trabalhados | Limitações / Motivação |
+| Versão | Armazenamento | Conceitos Aprendidos | Evolução / Limitação |
 | :--- | :--- | :--- | :--- |
-| **V.0.0.0** | Variáveis Simples | `String`, `Scanner`, `if-else`, `switch-case`, `while` | Armazena apenas **1 contato**. Um novo cadastro sobrescreve o anterior. |
-| **V.0.1.0** | Arrays (`String[]`) | Vetores, índices, tamanho fixo, percurso com `for` | Permite múltiplos contatos, mas requer capacidade pré-definida e gerenciamento manual de índices/remoção. |
-| **V.0.2.0** <br>*(Atual)* | `List` / `ArrayList` | Coleções dinâmicas, `add()`, `get()`, `remove()`, `size()`, `java.util.*` | Armazena múltiplos contatos com **tamanho dinâmico**. Elimina a necessidade de controle de capacidade e reorganização manual. |
+| **V.0.0.0** | Variáveis simples | `String`, `Scanner`, `if-else`, `switch-case`, repetição | Apenas 1 contato por vez; novo cadastro sobrescreve o anterior. |
+| **V.0.1.0** | Arrays (Vetores) | Vetores, índices, tamanho fixo, percurso com `for` | Permite múltiplos contatos, porém com capacidade limitada/fixa. |
+| **V.0.2.0** | `List` + `ArrayList` | Coleções, tamanho dinâmico, `add()`, `get()`, `remove()`, `size()` | Vários contatos sem necessidade de pré-definir a capacidade. |
+| **V.0.3.0** | `List` + `ArrayList` | Atualização de elementos de uma coleção com `set()` | **CRUD Completo**: Implementa a funcionalidade **Alterar Contato** (Update). |
 
 ---
 
-## 🎯 Objetivos de Aprendizagem da V.0.2.0
+## 🚀 Novidades da Versão 0.3.0
 
-* **Coleções Genéricas (`List<E>` e `ArrayList<E>`):** Compreender a diferença entre a declaração da interface e a instanciação da classe concreta.
-* **Tamanho Dinâmico:** Eliminar limites rígidos de capacidade e variáveis de controle manual (como `capacidade` e `cont`).
-* **Manipulação de Listas:**
-  * `add(elemento)`: Inserir elementos dinamicamente ao final da lista.
-  * `get(indice)`: Acessar elementos por seu índice posicional.
-  * `remove(indice)`: Remover elementos diretamente sem a necessidade de deslocar manualmente os itens restantes.
-  * `size()`: Consultar a quantidade atual de elementos na lista.
+* **Operação UPDATE (Alterar Contato):** Introdução do método `.set(index, element)` do `ArrayList`.
+* **Fluxo de Alteração de Dados:**
+  1. Busca do contato pelo nome (`equalsIgnoreCase`).
+  2. Mapeamento da posição (índice) nas listas paralelas (`nomes`, `celulares`, `emails`).
+  3. Solicitação dos novos dados.
+  4. Atualização exata da posição desejada usando `set()`.
+  5. Tratamento para contatos não encontrados (`posicao == -1`).
+* **CRUD Completo:**
+  * **C**reate $
+ightarrow$ `add()`
+  * **R**ead $
+ightarrow$ `get()` / `size()`
+  * **U**pdate $
+ightarrow$ `set()` *(Novidade da V.0.3.0)*
+  * **D**elete $
+ightarrow$ `remove()`
 
 ---
 
-## 💻 Código Fonte (`Principal.java`)
+## 💻 Código-Fonte (`Principal.java`)
 
 ```java
 package br.edu.principal;
 
-import java.util.Scanner;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Principal {
 
     public static void main(String[] args) {
-        // Declaração e instanciação de coleções dinâmicas
         List<String> nomes = new ArrayList<>();
         List<String> celulares = new ArrayList<>();
         List<String> emails = new ArrayList<>();
-
         Scanner sc = new Scanner(System.in);
+        
         int opcao;
         boolean continuar = true;
 
-        System.out.println("==========================");
-        System.out.println("    AGENDA DE CONTATOS    ");
-        System.out.println("         V.0.2.0          ");
-        System.out.println("==========================");
+        System.out.println("=================================");
+        System.out.println("       AGENDA DE CONTATOS        ");
+        System.out.println("            V.0.3.0              ");
+        System.out.println("=================================");
         System.out.println("Bem-vindo!");
 
         while (continuar) {
@@ -63,88 +71,114 @@ public class Principal {
             System.out.println("1 - Adicionar contato");
             System.out.println("2 - Listar contatos");
             System.out.println("3 - Procurar contato");
-            System.out.println("4 - Excluir contato");
-            System.out.println("5 - Sair");
-            System.out.println();
+            System.out.println("4 - Alterar contato");
+            System.out.println("5 - Excluir contato");
+            System.out.println("6 - Sair");
             System.out.print("Escolha uma opção: ");
-
             opcao = sc.nextInt();
-            sc.nextLine(); // Limpeza de buffer
+            sc.nextLine(); // Limpar buffer
 
             switch (opcao) {
                 case 1 -> {
-                    System.out.println("\n--- ADICIONAR CONTATO ---");
-                    System.out.print("Nome: ");
-                    nomes.add(sc.nextLine());
+                    System.out.println("=== ADICIONAR CONTATO ===");
+                    System.out.print("Digite o nome: ");
+                    String nome = sc.nextLine();
+                    System.out.print("Digite o celular: ");
+                    String celular = sc.nextLine();
+                    System.out.print("Digite o email: ");
+                    String email = sc.nextLine();
 
-                    System.out.print("Celular: ");
-                    celulares.add(sc.nextLine());
-
-                    System.out.print("E-mail: ");
-                    emails.add(sc.nextLine());
-
-                    System.out.println("Contato salvo com sucesso!");
+                    nomes.add(nome);
+                    celulares.add(celular);
+                    emails.add(email);
+                    System.out.println("Contato adicionado com sucesso!");
                 }
                 case 2 -> {
-                    System.out.println("\n--- LISTAR CONTATOS ---");
-                    if (nomes.size() == 0) {
-                        System.out.println("Nenhum contato encontrado!");
+                    System.out.println("=== LISTAR CONTATOS ===");
+                    if (nomes.isEmpty()) {
+                        System.out.println("Nenhum contato cadastrado!");
                     } else {
                         for (int i = 0; i < nomes.size(); i++) {
-                            System.out.println("\nContato " + (i + 1));
+                            System.out.println("--------------------");
                             System.out.println("Nome: " + nomes.get(i));
                             System.out.println("Celular: " + celulares.get(i));
-                            System.out.println("E-mail: " + emails.get(i));
+                            System.out.println("Email: " + emails.get(i));
                         }
                     }
                 }
                 case 3 -> {
-                    System.out.println("\n--- PROCURAR CONTATO ---");
-                    System.out.print("Digite o nome que deseja procurar: ");
+                    System.out.println("=== PROCURAR CONTATO ===");
+                    System.out.print("Digite o nome do contato: ");
                     String nomeBusca = sc.nextLine();
                     boolean encontrado = false;
 
                     for (int i = 0; i < nomes.size(); i++) {
                         if (nomes.get(i).equalsIgnoreCase(nomeBusca)) {
-                            System.out.println("\nContato encontrado!");
+                            System.out.println("--------------------");
                             System.out.println("Nome: " + nomes.get(i));
                             System.out.println("Celular: " + celulares.get(i));
-                            System.out.println("E-mail: " + emails.get(i));
+                            System.out.println("Email: " + emails.get(i));
                             encontrado = true;
                         }
                     }
 
                     if (!encontrado) {
-                        System.out.println("Contato não encontrado.");
+                        System.out.println("Contato não encontrado!");
                     }
                 }
                 case 4 -> {
-                    System.out.println("\n--- EXCLUIR CONTATO ---");
-                    if (nomes.size() == 0) {
-                        System.out.println("Nenhum contato cadastrado.");
+                    System.out.println("=== ALTERAR CONTATO ===");
+                    System.out.print("Digite o nome do contato: ");
+                    String nomeProcurado = sc.nextLine();
+                    int posicao = -1;
+
+                    for (int i = 0; i < nomes.size(); i++) {
+                        if (nomes.get(i).equalsIgnoreCase(nomeProcurado)) {
+                            posicao = i;
+                            break;
+                        }
+                    }
+
+                    if (posicao != -1) {
+                        System.out.print("Digite o novo nome: ");
+                        String novoNome = sc.nextLine();
+                        System.out.print("Digite o novo celular: ");
+                        String novoCelular = sc.nextLine();
+                        System.out.print("Digite o novo email: ");
+                        String novoEmail = sc.nextLine();
+
+                        nomes.set(posicao, novoNome);
+                        celulares.set(posicao, novoCelular);
+                        emails.set(posicao, novoEmail);
+
+                        System.out.println("Contato alterado com sucesso!");
                     } else {
-                        System.out.print("Digite o nome do contato que deseja excluir: ");
-                        String nomeExcluir = sc.nextLine();
-                        int indiceExcluir = -1;
-
-                        for (int i = 0; i < nomes.size(); i++) {
-                            if (nomes.get(i).equalsIgnoreCase(nomeExcluir)) {
-                                indiceExcluir = i;
-                            }
-                        }
-
-                        if (indiceExcluir == -1) {
-                            System.out.println("Contato não encontrado.");
-                        } else {
-                            nomes.remove(indiceExcluir);
-                            celulares.remove(indiceExcluir);
-                            emails.remove(indiceExcluir);
-                            System.out.println("Contato excluído com sucesso!");
-                        }
+                        System.out.println("Contato não encontrado!");
                     }
                 }
                 case 5 -> {
-                    System.out.println("Saindo...");
+                    System.out.println("=== EXCLUIR CONTATO ===");
+                    System.out.print("Digite o nome do contato: ");
+                    String nomeExcluir = sc.nextLine();
+                    boolean excluido = false;
+
+                    for (int i = 0; i < nomes.size(); i++) {
+                        if (nomes.get(i).equalsIgnoreCase(nomeExcluir)) {
+                            nomes.remove(i);
+                            celulares.remove(i);
+                            emails.remove(i);
+                            excluido = true;
+                            System.out.println("Contato excluído com sucesso!");
+                            break;
+                        }
+                    }
+
+                    if (!excluido) {
+                        System.out.println("Contato não encontrado!");
+                    }
+                }
+                case 6 -> {
+                    System.out.println("Saindo da Agenda de Contatos...");
                     continuar = false;
                 }
                 default -> System.out.println("Opção inválida!");
@@ -153,3 +187,30 @@ public class Principal {
         sc.close();
     }
 }
+```
+
+---
+
+## 🛠️ Como Executar
+
+1. **Pré-requisitos:** Ter o Java Development Kit (JDK 17+) instalado.
+2. **Compilação:**
+   ```bash
+   javac br/edu/principal/Principal.java
+   ```
+3. **Execução:**
+   ```bash
+   java br.edu.principal.Principal
+   ```
+
+---
+
+## 🛠️ Resumo dos Métodos Utilizados (`java.util.List`)
+
+| Método | Finalidade no Projeto | Operação CRUD |
+| :--- | :--- | :--- |
+| `add(e)` | Adiciona um novo elemento ao final da lista | **Create** |
+| `get(i)` | Obtém o elemento presente no índice `i` | **Read** |
+| `set(i, e)` | Substitui o elemento no índice `i` pelo novo valor `e` | **Update** |
+| `remove(i)` | Remove o elemento presente no índice `i` | **Delete** |
+| `size()` | Retorna o total de elementos cadastrados | Auxiliar de Consulta |
