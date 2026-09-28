@@ -8,9 +8,12 @@ public class Principal {
 	
 	public static void main(String[] args) {
 
+
         List<String> nomes = new ArrayList<>();
         List<String> celulares = new ArrayList<>();
         List<String> emails = new ArrayList<>();
+        persistencia.carregarContatos(nomes, celulares, emails);
+        
         int opcao;
         boolean continuar = true;
         
@@ -28,11 +31,14 @@ public class Principal {
                 case 3-> Agenda.pesquisar(sc, nomes, celulares, emails);
                 case 4-> Agenda.atualizar(sc, nomes, celulares, emails);           	
                 case 5-> Agenda.excluir(sc, nomes, celulares, emails);          	
-                case 6-> Uteis.sair(continuar);
+                case 6-> {
+                	persistencia.salvarContatos(nomes, celulares, emails);
+                	continuar = Uteis.sair();
+                }
                 case 7-> Uteis.sobre();
                 default -> System.out.println("Opção inválida!");
             }
         }
         sc.close();
-    }
+    }	
 }
